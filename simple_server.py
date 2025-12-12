@@ -483,6 +483,18 @@ async def serve_home(request):
     """Serve the main HTML page"""
     return web.Response(text=HTML_PAGE, content_type='text/html')
 
+async def serve_student(request):
+    """Serve student.html"""
+    with open('student.html', 'r', encoding='utf-8') as f:
+        html_content = f.read()
+    return web.Response(text=html_content, content_type='text/html')
+
+async def serve_teacher(request):
+    """Serve teacher.html"""
+    with open('teacher.html', 'r', encoding='utf-8') as f:
+        html_content = f.read()
+    return web.Response(text=html_content, content_type='text/html')
+
 async def websocket_handler(request):
     """Handle WebSocket connections for students, teachers, and quiz AI"""
     ws = web.WebSocketResponse()
@@ -599,6 +611,8 @@ def create_app():
     
     # Add routes
     app.router.add_get('/', serve_home)
+    app.router.add_get('/student', serve_student)
+    app.router.add_get('/teacher', serve_teacher)
     app.router.add_get('/ws', websocket_handler)
     
     return app
@@ -608,7 +622,6 @@ def create_app():
 if __name__ == '__main__':
     app = create_app()
     port = int(os.environ.get('PORT', 5000))
-    web.run_app(app, host='0.0.0.0', port=port)
     
     print("=" * 60)
     print("🎓 RIZWAN NAQVI QUIZ PORTAL IS LIVE!")
@@ -618,4 +631,3 @@ if __name__ == '__main__':
     print("=" * 60)
     
     web.run_app(app, host='0.0.0.0', port=port)
-
