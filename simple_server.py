@@ -485,15 +485,21 @@ async def serve_home(request):
 
 async def serve_student(request):
     """Serve student.html"""
-    with open('student.html', 'r', encoding='utf-8') as f:
-        html_content = f.read()
-    return web.Response(text=html_content, content_type='text/html')
+    try:
+        with open('student.html', 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        return web.Response(text=html_content, content_type='text/html')
+    except FileNotFoundError:
+        return web.Response(text="Student portal not found. Please check file deployment.", status=404)
 
 async def serve_teacher(request):
     """Serve teacher.html"""
-    with open('teacher.html', 'r', encoding='utf-8') as f:
-        html_content = f.read()
-    return web.Response(text=html_content, content_type='text/html')
+    try:
+        with open('teacher.html', 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        return web.Response(text=html_content, content_type='text/html')
+    except FileNotFoundError:
+        return web.Response(text="Teacher portal not found. Please check file deployment.", status=404)
 
 async def websocket_handler(request):
     """Handle WebSocket connections for students, teachers, and quiz AI"""
