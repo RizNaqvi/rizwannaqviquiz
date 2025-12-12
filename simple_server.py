@@ -608,6 +608,7 @@ def create_app():
 if __name__ == '__main__':
     app = create_app()
     port = int(os.environ.get('PORT', 5000))
+    web.run_app(app, host='0.0.0.0', port=port)
     
     print("=" * 60)
     print("🎓 RIZWAN NAQVI QUIZ PORTAL IS LIVE!")
@@ -617,3 +618,4 @@ if __name__ == '__main__':
     print("=" * 60)
     
     web.run_app(app, host='0.0.0.0', port=port)
+
