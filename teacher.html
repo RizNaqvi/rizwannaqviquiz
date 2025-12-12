@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Dashboard</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .header {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .header p {
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    .content {
+        padding: 40px;
+    }
+
+    .controls {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+    }
+
+    button {
+        flex: 1;
+        min-width: 200px;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    button.secondary {
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    }
+
+    button.secondary:hover {
+        box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+    }
+
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 25px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-card h3 {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .stat-card .number {
+        font-size: 36px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .section-title {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #27ae60;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+    }
+
+    th {
+        background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+        color: white;
+        font-weight: 600;
+        padding: 18px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 14px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    td {
+        padding: 18px;
+        border-bottom: 1px solid #e0e0e0;
+        text-align: center;
+        color: #333;
+    }
+
+    tr:hover {
+        background: #f8f9fa;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    .rank-badge {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        border-radius: 50%;
+        font-weight: 700;
+        color: white;
+        font-size: 16px;
+    }
+
+    .rank-1 { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); }
+    .rank-2 { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); }
+    .rank-3 { background: linear-gradient(135deg, #d35400 0%, #c0392b 100%); }
+    .rank-other { background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%); }
+
+    .score-bar {
+        width: 100%;
+        height: 8px;
+        background: #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 5px;
+    }
+
+    .score-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #27ae60 0%, #229954 100%);
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+
+    .percentage-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .grade-a { background: #d4edda; color: #155724; }
+    .grade-b { background: #d1ecf1; color: #0c5460; }
+    .grade-c { background: #fff3cd; color: #856404; }
+    .grade-d { background: #f8d7da; color: #721c24; }
+
+    .connection-status {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: 600;
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .status-connected {
+        background: #27ae60;
+        color: white;
+    }
+
+    .status-disconnected {
+        background: #e74c3c;
+        color: white;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #999;
+    }
+
+    .empty-state-icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+        color: #666;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .empty-state p {
+        color: #999;
+    }
+
+    .refresh-info {
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        color: #1976d2;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            border-radius: 0;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .controls {
+            flex-direction: column;
+        }
+
+        button {
+            min-width: 100%;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        table {
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px 8px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>👨‍🏫 Teacher Dashboard</h1>
+        <p>Monitor and manage student quiz results in real-time</p>
+    </div>
+
+    <div class="content">
+        <div class="controls">
+            <button onclick="connectServer()">🔌 Connect to Server</button>
+            <button class="secondary" onclick="requestResults()">🔄 Refresh Results</button>
+        </div>
+
+        <div class="refresh-info" id="refresh-info" style="display: none;">
+            ℹ️ Results update automatically when students complete quizzes
+        </div>
+
+        <div class="stats-container" id="stats-container" style="display: none;">
+            <div class="stat-card">
+                <h3>Total Students</h3>
+                <div class="number" id="total-students">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Average Score</h3>
+                <div class="number" id="avg-score">0%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Highest Score</h3>
+                <div class="number" id="high-score">0%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Lowest Score</h3>
+                <div class="number" id="low-score">0%</div>
+            </div>
+        </div>
+
+        <h3 class="section-title">📊 Quiz Results Leaderboard</h3>
+        
+        <div class="table-container">
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Student Name</th>
+                        <th>Quiz</th>
+                        <th>Score</th>
+                        <th>Percentage</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📋</div>
+                                <h3>No Results Yet</h3>
+                                <p>Results will appear here when students complete their quizzes</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+let ws = null;
+
+function showStatus(message, isConnected) {
+    let existingStatus = document.querySelector('.connection-status');
+    if (existingStatus) {
+        existingStatus.remove();
+    }
+
+    let status = document.createElement('div');
+    status.className = `connection-status ${isConnected ? 'status-connected' : 'status-disconnected'}`;
+    status.textContent = message;
+    document.body.appendChild(status);
+
+    setTimeout(() => {
+        status.remove();
+    }, 3000);
+}
+
+function connectServer() {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+        showStatus("Already connected", true);
+        return;
+    }
+
+    ws = new WebSocket("ws://localhost:5000/ws");
+
+    ws.onopen = () => {
+        console.log("[Teacher] Connected to server");
+        showStatus("✓ Connected to server", true);
+        
+        // Register as teacher
+        ws.send(JSON.stringify({
+            type: "register",
+            role: "teacher"
+        }));
+
+        // Show refresh info
+        document.getElementById("refresh-info").style.display = "block";
+
+        // Auto-request results after connection
+        setTimeout(() => {
+            requestResults();
+        }, 500);
+    };
+
+    ws.onmessage = (evt) => {
+        let data = JSON.parse(evt.data);
+        console.log("[Teacher] Received:", data);
+
+        // Handle results
+        if (data.type === "results") {
+            displayResults(data.data);
+        }
+
+        // Handle new result notification
+        if (data.type === "new_result") {
+            showStatus(`New result from ${data.result.name}!`, true);
+            // Auto-refresh results
+            requestResults();
+        }
+    };
+
+    ws.onerror = (error) => {
+        console.error("[Teacher] WebSocket error:", error);
+        showStatus("✗ Connection error", false);
+        alert("❌ Could not connect to server. Make sure the server is running!");
+    };
+
+    ws.onclose = () => {
+        console.log("[Teacher] WebSocket closed");
+        showStatus("✗ Disconnected from server", false);
+        ws = null;
+    };
+}
+
+function requestResults() {
+    if (!ws || ws.readyState !== WebSocket.OPEN) {
+        showStatus("Not connected to server", false);
+        alert("⚠️ Please connect to the server first");
+        return;
+    }
+
+    ws.send(JSON.stringify({
+        type: "show_results"
+    }));
+}
+
+function displayResults(results) {
+    let tbody = document.querySelector("#results-table tbody");
+    
+    if (!results || results.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <h3>No Results Yet</h3>
+                        <p>Results will appear here when students complete their quizzes</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        document.getElementById("stats-container").style.display = "none";
+        return;
+    }
+
+    // Sort by highest score
+    results.sort((a, b) => b.percentage - a.percentage);
+
+    // Calculate statistics
+    let totalStudents = results.length;
+    let avgScore = (results.reduce((sum, r) => sum + r.percentage, 0) / totalStudents).toFixed(1);
+    let highScore = results[0].percentage;
+    let lowScore = results[results.length - 1].percentage;
+
+    // Update stats
+    document.getElementById("stats-container").style.display = "grid";
+    document.getElementById("total-students").textContent = totalStudents;
+    document.getElementById("avg-score").textContent = avgScore + "%";
+    document.getElementById("high-score").textContent = highScore + "%";
+    document.getElementById("low-score").textContent = lowScore + "%";
+
+    // Build table
+    tbody.innerHTML = "";
+
+    results.forEach((r, index) => {
+        let rank = index + 1;
+        let rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other';
+        
+        // Determine grade
+        let gradeClass, gradeLetter;
+        if (r.percentage >= 90) {
+            gradeClass = 'grade-a';
+            gradeLetter = 'A';
+        } else if (r.percentage >= 80) {
+            gradeClass = 'grade-b';
+            gradeLetter = 'B';
+        } else if (r.percentage >= 70) {
+            gradeClass = 'grade-c';
+            gradeLetter = 'C';
+        } else {
+            gradeClass = 'grade-d';
+            gradeLetter = 'D';
+        }
+
+        let tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>
+                <span class="rank-badge ${rankClass}">${rank}</span>
+            </td>
+            <td style="text-align: left; font-weight: 600;">${r.name}</td>
+            <td>${r.quiz}</td>
+            <td>
+                <strong>${r.score}/${r.possible}</strong>
+                <div class="score-bar">
+                    <div class="score-fill" style="width: ${r.percentage}%"></div>
+                </div>
+            </td>
+            <td><strong>${r.percentage}%</strong></td>
+            <td>
+                <span class="percentage-badge ${gradeClass}">${gradeLetter}</span>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    showStatus(`Loaded ${totalStudents} results`, true);
+}
+
+// Auto-connect on page load
+window.addEventListener('DOMContentLoaded', () => {
+    // Optional: Auto-connect when page loads
+    // connectServer();
+});
+</script>
+
+</body>
+</html>

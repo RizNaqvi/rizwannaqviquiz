@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+"""
+Simple Quiz AI - Sends questions and grades answers
+"""
+import asyncio
+import aiohttp
+import json
+import random
+from datetime import datetime
+
+WS_SERVER = "ws://localhost:5000/ws"
+QUIZ_FILE = "quiz2.json"
+
+students = {}  # Store each student's quiz state
+
+# Load questions
+with open(QUIZ_FILE, 'r', encoding='utf-8') as f:
+    QUIZZES = json.load(f)
+
+async def run_ai():
+    session = aiohttp.ClientSession()
+    ws = await session.ws_connect(WS_SERVER, heartbeat=25)
+    
+    print("✓ AI connected to server")
+    
+    # Register as AI
+    await ws.send_json({"type": "register", "role": "quiz_ai", "name": "QuizAI"})
+    
+    async for msg in ws:
+        if msg.type == aiohttp.WSMsgType.TEXT:
+            data = json.loads(msg.data)
+            msg_type = data.get("type")
+            
+            # Start quiz for student
+            if msg_type == "start_quiz":
+                student = data.get("name")
+                quiz_id = data.get("quiz")
+                
+                questions = QUIZZES[quiz_id]["questions"].copy()
+                random.shuffle(questions)  # Randomize order
+                
+                students[student] = {
+                    "questions": questions,
+                    "index": 0,
+                    "answers": [],
+                    "started": datetime.utcnow().isoformat() + "Z"
+                }
+                
+                print(f"→ Started quiz for {student} ({len(questions)} questions)")
+                
+                # Send first question
+                await send_question(ws, student)
+            
+            # Student answered
+            elif msg_type == "student_answer":
+                student = data.get("name")
+                answer = data.get("answer")
+                
+                if student not in students:
+                    continue
+                
+                st = students[student]
+                q = st["questions"][st["index"]]
+                
+                # Save answer
+                st["answers"].append({
+                    "qid": q["id"],
+                    "selected": answer.upper() if answer else None
+                })
+                
+                st["index"] += 1
+                
+                # More questions?
+                if st["index"] < len(st["questions"]):
+                    await asyncio.sleep(0.1)
+                    await send_question(ws, student)
+                else:
+                    # Quiz complete - send results
+                    await send_results(ws, student)
+
+async def send_question(ws, student):
+    st = students[student]
+    q = st["questions"][st["index"]]
+    
+    await ws.send_json({
+        "type": "question",
+        "name": student,
+        "id": q["id"],
+        "question": q["question"],
+        "A": q["A"],
+        "B": q["B"],
+        "C": q["C"],
+        "D": q["D"]
+    })
+
+async def send_results(ws, student):
+    st = students[student]
+    questions = st["questions"]
+    answers = st["answers"]
+    
+    details = []
+    score = 0
+    
+    for ans in answers:
+        qid = ans["qid"]
+        selected = ans["selected"]
+        
+        # Find question
+        q = next((q for q in questions if q["id"] == qid), None)
+        if not q:
+            continue
+        
+        correct = q["correct"]
+        is_correct = (selected == correct)
+        
+        if is_correct:
+            score += 1
+        
+        details.append({
+            "id": qid,
+            "question": q["question"],
+            "selected": selected,
+            "correct": correct,
+            "is_correct": is_correct,
+            "explanation": q.get("explanation", "")
+        })
+    
+    total = len(questions)
+    percentage = round((score / total) * 100, 2)
+    
+    result = {
+        "name": student,
+        "quiz": "quizA",
+        "score": score,
+        "possible": total,
+        "percentage": percentage,
+        "started_at": st["started"],
+        "finished_at": datetime.utcnow().isoformat() + "Z",
+        "details": details
+    }
+    
+    await ws.send_json({
+        "type": "final_result",
+        "result": result
+    })
+    
+    print(f"✓ {student}: {score}/{total} ({percentage}%)")
+
+if __name__ == '__main__':
+    print("="*50)
+    print("🤖 Starting Quiz AI")
+    print("="*50)
+    asyncio.run(run_ai())

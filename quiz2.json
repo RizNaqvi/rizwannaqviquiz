@@ -1,0 +1,308 @@
+{
+  "quizA": {
+    "title": "General Knowledge Quiz",
+    "description": "Test your general knowledge with 30 questions",
+    "questions": [
+      {
+        "id": 1,
+        "question": "What is the capital of France?",
+        "A": "London",
+        "B": "Berlin",
+        "C": "Paris",
+        "D": "Madrid",
+        "correct": "C",
+        "explanation": "Paris is the capital and largest city of France."
+      },
+      {
+        "id": 2,
+        "question": "Which planet is known as the Red Planet?",
+        "A": "Venus",
+        "B": "Mars",
+        "C": "Jupiter",
+        "D": "Saturn",
+        "correct": "B",
+        "explanation": "Mars is called the Red Planet due to its reddish appearance from iron oxide on its surface."
+      },
+      {
+        "id": 3,
+        "question": "Who wrote 'Romeo and Juliet'?",
+        "A": "Charles Dickens",
+        "B": "William Shakespeare",
+        "C": "Mark Twain",
+        "D": "Jane Austen",
+        "correct": "B",
+        "explanation": "William Shakespeare wrote Romeo and Juliet around 1594-1596."
+      },
+      {
+        "id": 4,
+        "question": "What is the largest ocean on Earth?",
+        "A": "Atlantic Ocean",
+        "B": "Indian Ocean",
+        "C": "Arctic Ocean",
+        "D": "Pacific Ocean",
+        "correct": "D",
+        "explanation": "The Pacific Ocean covers approximately 63 million square miles."
+      },
+      {
+        "id": 5,
+        "question": "How many continents are there?",
+        "A": "5",
+        "B": "6",
+        "C": "7",
+        "D": "8",
+        "correct": "C",
+        "explanation": "There are 7 continents: Africa, Antarctica, Asia, Europe, North America, Oceania, and South America."
+      },
+      {
+        "id": 6,
+        "question": "What is the smallest unit of life?",
+        "A": "Atom",
+        "B": "Cell",
+        "C": "Molecule",
+        "D": "Organ",
+        "correct": "B",
+        "explanation": "The cell is the smallest structural and functional unit of living organisms."
+      },
+      {
+        "id": 7,
+        "question": "In what year did World War II end?",
+        "A": "1943",
+        "B": "1944",
+        "C": "1945",
+        "D": "1946",
+        "correct": "C",
+        "explanation": "World War II ended in 1945 with the surrender of Japan in September."
+      },
+      {
+        "id": 8,
+        "question": "What is the chemical symbol for gold?",
+        "A": "Go",
+        "B": "Au",
+        "C": "Gd",
+        "D": "Ag",
+        "correct": "B",
+        "explanation": "Au comes from the Latin word 'aurum' meaning gold."
+      },
+      {
+        "id": 9,
+        "question": "Who painted the Mona Lisa?",
+        "A": "Vincent van Gogh",
+        "B": "Pablo Picasso",
+        "C": "Leonardo da Vinci",
+        "D": "Michelangelo",
+        "correct": "C",
+        "explanation": "Leonardo da Vinci painted the Mona Lisa between 1503 and 1519."
+      },
+      {
+        "id": 10,
+        "question": "What is the speed of light?",
+        "A": "300,000 km/s",
+        "B": "150,000 km/s",
+        "C": "450,000 km/s",
+        "D": "600,000 km/s",
+        "correct": "A",
+        "explanation": "Light travels at approximately 299,792 kilometers per second in vacuum."
+      },
+      {
+        "id": 11,
+        "question": "Which element has the atomic number 1?",
+        "A": "Helium",
+        "B": "Hydrogen",
+        "C": "Oxygen",
+        "D": "Carbon",
+        "correct": "B",
+        "explanation": "Hydrogen is the lightest element with atomic number 1."
+      },
+      {
+        "id": 12,
+        "question": "What is the longest river in the world?",
+        "A": "Amazon River",
+        "B": "Nile River",
+        "C": "Yangtze River",
+        "D": "Mississippi River",
+        "correct": "B",
+        "explanation": "The Nile River is approximately 6,650 km long."
+      },
+      {
+        "id": 13,
+        "question": "How many bones are in the human body?",
+        "A": "186",
+        "B": "206",
+        "C": "226",
+        "D": "246",
+        "correct": "B",
+        "explanation": "An adult human has 206 bones."
+      },
+      {
+        "id": 14,
+        "question": "What is the largest mammal?",
+        "A": "African Elephant",
+        "B": "Blue Whale",
+        "C": "Giraffe",
+        "D": "Polar Bear",
+        "correct": "B",
+        "explanation": "The blue whale can reach lengths of up to 100 feet."
+      },
+      {
+        "id": 15,
+        "question": "Which gas do plants absorb from the atmosphere?",
+        "A": "Oxygen",
+        "B": "Nitrogen",
+        "C": "Carbon Dioxide",
+        "D": "Hydrogen",
+        "correct": "C",
+        "explanation": "Plants absorb CO2 during photosynthesis."
+      },
+      {
+        "id": 16,
+        "question": "Who developed the theory of relativity?",
+        "A": "Isaac Newton",
+        "B": "Albert Einstein",
+        "C": "Stephen Hawking",
+        "D": "Niels Bohr",
+        "correct": "B",
+        "explanation": "Einstein published his theory of relativity in 1905 and 1915."
+      },
+      {
+        "id": 17,
+        "question": "What is the hardest natural substance?",
+        "A": "Gold",
+        "B": "Iron",
+        "C": "Diamond",
+        "D": "Platinum",
+        "correct": "C",
+        "explanation": "Diamond ranks 10 on the Mohs hardness scale."
+      },
+      {
+        "id": 18,
+        "question": "How many sides does a hexagon have?",
+        "A": "5",
+        "B": "6",
+        "C": "7",
+        "D": "8",
+        "correct": "B",
+        "explanation": "A hexagon is a polygon with six sides."
+      },
+      {
+        "id": 19,
+        "question": "What is the capital of Japan?",
+        "A": "Seoul",
+        "B": "Beijing",
+        "C": "Tokyo",
+        "D": "Bangkok",
+        "correct": "C",
+        "explanation": "Tokyo has been the capital of Japan since 1868."
+      },
+      {
+        "id": 20,
+        "question": "Which vitamin is produced when skin is exposed to sunlight?",
+        "A": "Vitamin A",
+        "B": "Vitamin C",
+        "C": "Vitamin D",
+        "D": "Vitamin E",
+        "correct": "C",
+        "explanation": "Sunlight helps the body produce Vitamin D naturally."
+      },
+      {
+        "id": 21,
+        "question": "What is the boiling point of water at sea level?",
+        "A": "90°C",
+        "B": "100°C",
+        "C": "110°C",
+        "D": "120°C",
+        "correct": "B",
+        "explanation": "Water boils at 100°C (212°F) at standard atmospheric pressure."
+      },
+      {
+        "id": 22,
+        "question": "Who was the first person to walk on the moon?",
+        "A": "Buzz Aldrin",
+        "B": "Neil Armstrong",
+        "C": "Yuri Gagarin",
+        "D": "John Glenn",
+        "correct": "B",
+        "explanation": "Neil Armstrong walked on the moon on July 20, 1969."
+      },
+      {
+        "id": 23,
+        "question": "What is the square root of 144?",
+        "A": "10",
+        "B": "11",
+        "C": "12",
+        "D": "13",
+        "correct": "C",
+        "explanation": "12 × 12 = 144"
+      },
+      {
+        "id": 24,
+        "question": "Which ocean is the coldest?",
+        "A": "Arctic Ocean",
+        "B": "Atlantic Ocean",
+        "C": "Indian Ocean",
+        "D": "Pacific Ocean",
+        "correct": "A",
+        "explanation": "The Arctic Ocean has temperatures near freezing year-round."
+      },
+      {
+        "id": 25,
+        "question": "What is the largest desert in the world?",
+        "A": "Sahara",
+        "B": "Gobi",
+        "C": "Antarctic",
+        "D": "Arabian",
+        "correct": "C",
+        "explanation": "Antarctica is technically the largest desert with minimal precipitation."
+      },
+      {
+        "id": 26,
+        "question": "How many hours are in a day?",
+        "A": "12",
+        "B": "24",
+        "C": "36",
+        "D": "48",
+        "correct": "B",
+        "explanation": "Earth rotates once every 24 hours."
+      },
+      {
+        "id": 27,
+        "question": "What is the main language spoken in Brazil?",
+        "A": "Spanish",
+        "B": "Portuguese",
+        "C": "English",
+        "D": "French",
+        "correct": "B",
+        "explanation": "Portuguese is the official language of Brazil."
+      },
+      {
+        "id": 28,
+        "question": "Which planet is closest to the Sun?",
+        "A": "Venus",
+        "B": "Earth",
+        "C": "Mercury",
+        "D": "Mars",
+        "correct": "C",
+        "explanation": "Mercury orbits closest to the Sun at about 58 million km."
+      },
+      {
+        "id": 29,
+        "question": "What is the primary color that cannot be made by mixing other colors?",
+        "A": "Green",
+        "B": "Orange",
+        "C": "Red",
+        "D": "Purple",
+        "correct": "C",
+        "explanation": "Red, blue, and yellow are primary colors."
+      },
+      {
+        "id": 30,
+        "question": "How many degrees are in a right angle?",
+        "A": "45",
+        "B": "60",
+        "C": "90",
+        "D": "180",
+        "correct": "C",
+        "explanation": "A right angle measures exactly 90 degrees."
+      }
+    ]
+  }
+}
