@@ -1,2 +1,2 @@
 aiohttp==3.9.5
-asyncio
+aiohttp-session==0.8.0
